@@ -1,4 +1,5 @@
 version: '3.8'
+#docker-compose -p sharesense -f docker/docker-compose-dev.yml up -d
 services:
   db:
     image: postgres
