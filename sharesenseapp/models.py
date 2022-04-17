@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from sharesenseapp.choices import *
+from ShareSense.sharesenseapp.choices import DISTRICT_CHOICES
+
 
 class SenseUser(AbstractUser):
     # define roles
