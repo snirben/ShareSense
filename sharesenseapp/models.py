@@ -1,9 +1,8 @@
-from tkinter import CASCADE
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from ShareSense.sharesenseapp.choices import *
+from sharesenseapp.choices import *
 
-class User(AbstractUser):
+class SenseUser(AbstractUser):
     # define roles
     ROLE = ((0, "regular_user"), (1, "good_people"))
     role = models.PositiveSmallIntegerField(choices=ROLE, default=0)
@@ -16,6 +15,6 @@ class User(AbstractUser):
 
 class Sensor (models.Model):
     name = models.CharField(max_length=50, null=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(SenseUser, on_delete=models.CASCADE)
 
 

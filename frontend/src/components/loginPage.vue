@@ -28,7 +28,31 @@
 
 
 <script>
-
+  export default {
+    name: 'loginPage',
+    data () {
+      return {
+        username: '',
+        password: '',
+        incorrectAuth: false
+      }
+    },
+    methods: {
+      login () { 
+        this.$store.dispatch('userLogin', {
+          username: this.username,
+          password: this.password
+        })
+        .then(() => {
+          this.$router.push({ name: 'posts' })
+        })
+        .catch(err => {
+          console.log(err)
+          this.incorrectAuth = true
+        })
+        }
+      }
+  }
 </script>
 
 
