@@ -16,6 +16,16 @@ const router = new Router({
       name: 'Logout',
       component: () => import('./components/loginPage.vue')
     },
+    {
+      path: '/alertcenter',
+      name: 'alertcenter',
+      component: () => import('./components/AlertCenter.vue')
+    },
+    {
+      path: '/panicbutton',
+      name: 'panicbutton',
+      component: () => import('./components/panicButton.vue')
+    },
   ]
 })
 

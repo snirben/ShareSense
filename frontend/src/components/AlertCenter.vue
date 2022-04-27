@@ -1,5 +1,6 @@
 <template>
-  <div class="Personal-tab-container">
+  <div class="boxs-warrper">
+  <div v-for="user in users" class="Personal-tab-container">
     <div class="customer-photo">
       <span class="photo">
         <img src="https://365webresources.com/wp-content/uploads/2016/09/FREE-PROFILE-AVATARS.png">
@@ -8,35 +9,76 @@
 
     <div class="customer-details">
      <span class="user-name">
-          Tzlil Levi
+          {{ user.first_name }} {{user.last_name}}
         </span>
       <span class="user-address">
-          kiryat-Gat
+          {{ user.city || "Unknown" }}
        </span>
     </div>
 
     <div class="icons">
         <span class="fire">
-         <i class="fa-reular fa-fire">fire-icon</i>
+         <font-awesome-icon class="fire" icon="fa-solid fa-fire" />
          </span>
         <span class="alert-button">
-          <i class="fa-regular fa-siren-on">alert-icon</i>
+          <font-awesome-icon class="bell" icon="fa-solid fa-bell" />
          </span>
     </div>
 
   </div>
-
+</div>
 </template>
 
 
 
 <script>
+import axios from 'axios';
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+/* import specific icons */
+import { faFire } from '@fortawesome/free-solid-svg-icons'
+import { faBell } from '@fortawesome/free-solid-svg-icons'
+/* import font awesome icon component */
+
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+library.add(faFire,faBell)
+
+  export default {
+    name: 'alertPage',
+    data () {
+      return {
+        users: {},
+      }
+    },
+    components:{
+      FontAwesomeIcon,
+    },
+    created(){
+              axios.get('http://127.0.0.1:8000/api/users', {}).then(
+            resp => {
+              this.users = resp.data
+              console.log(resp)
+            }
+        ).catch(
+           err=> {console.log(err)}
+        )
+    }
+  }
 
 </script>
 
 
 <style scoped lang="scss">
+
+.boxs-warrper{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+
 .Personal-tab-container{
   display:flex;
   flex-direction:column;
@@ -77,7 +119,7 @@
       font-family: 'Archivo', sans-serif;
       font-family: 'Poppins', sans-serif;
       font-family: 'Varela Round', sans-serif;
-      font-size:10px;
+      font-size:14px;
       color:gray;
       margin-bottom:12px;
     }

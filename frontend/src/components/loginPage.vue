@@ -1,21 +1,22 @@
 <template>
-    <div class="container">
+    <div class="container" v-if="token==null">
         <h1>Sign In</h1>
-        <form action="" method="post">
+        <form action="" method="post" @submit.prevent="login">
             <div>
-                <label for="email">
-                    Email
+                <label for="username">
+                    Username
                 </label>
-                <input type="email" id="email" name="email" placeholder="email">
+                <input v-model="username" type="text" id="username" name="username" placeholder="username">
             </div>
-            <div>
+            <div class="password">
                 <label for="password">
                     Password
                 </label>
-                <input type="password" id="password" name="password" placeholder="password">
+                <input v-model="password" type="password" id="password" name="password" placeholder="password">
             </div>
+          <p class="error" v-if="incorrectAuth">User name or password is incorrect</p>
             <div>
-                <input class="submit-login" type="submit" value="login">
+              <button class="submit-login" type="submit">Login</button>
             </div>
         </form>
         <div class="to-sign-up">
@@ -28,30 +29,41 @@
 
 
 <script>
+import axios from 'axios';
   export default {
     name: 'loginPage',
     data () {
       return {
         username: '',
         password: '',
-        incorrectAuth: false
+        incorrectAuth: false,
+        token: null,
+        redirect: {
+          '0':'/panicbutton',
+          '1':'/reguler',
+          '2':'/alertcenter',
+        }
       }
     },
     methods: {
-      login () { 
-        this.$store.dispatch('userLogin', {
+      login() {
+        axios.post('http://127.0.0.1:8000/login/', {
           username: this.username,
           password: this.password
-        })
-        .then(() => {
-          this.$router.push({ name: 'posts' })
-        })
-        .catch(err => {
-          console.log(err)
-          this.incorrectAuth = true
-        })
-        }
+        }).then(
+            resp => {
+              this.incorrectAuth = false;
+              this.token = resp.data.access
+              this.$router.push({path: this.redirect[resp.data.role]});
+              localStorage.setItem('user-token',resp.data.access)
+            }
+        ).catch(
+           err=> {this.incorrectAuth = true;
+             localStorage.removeItem('user-token')
+           console.log(err)}
+        )
       }
+    }
   }
 </script>
 
@@ -113,6 +125,9 @@ input[type=password], input[type=email]{
 a{
     color: #3c3cdb;
     text-decoration: none;
+}
+.error{
+  color: #f10a0a;
 }
 
 a:hover{
