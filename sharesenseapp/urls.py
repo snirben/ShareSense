@@ -1,5 +1,5 @@
 from django.urls import path
-from sharesenseapp.views import MyObtainTokenPairView,RegisterView,usersListApiView
+from sharesenseapp.views import MyObtainTokenPairView,RegisterView,usersListApiView,sendEmail
 from rest_framework_simplejwt.views import TokenRefreshView
 
 
@@ -8,4 +8,5 @@ urlpatterns = [
     path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('register/', RegisterView.as_view(), name='auth_register'),
     path('api/users', usersListApiView.as_view()),
+    path('api/email', sendEmail)
 ]
