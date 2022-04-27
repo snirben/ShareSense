@@ -39,13 +39,16 @@ class RegisterView(generics.CreateAPIView):
 
 @api_view(['POST'])
 def sendEmail(request):
-    users = User.objects.filter(role=1)
-    send_mail(
-        'התראת shareSense ',
-        'אדם זקוק לעזרה בכתובת: , לעדכונך',
-        'sharesense2022@gmail.com',
-    
-         ['tzlil460@gmail.com'],
-         fail_silently=False,
-    )
+    user= User.objects.get(id=2) 
+    # id =request.user.id
+    userDistrict= user.district
+    users = User.objects.filter(role=1, district=userDistrict)
+    for user in users:
+        send_mail(
+            'התראת shareSense ',
+            'אדם זקוק לעזרה בכתובת: , לעדכונך',
+            'sharesense2022@gmail.com',
+            [user.email],
+            fail_silently=False,
+        )
     return Response(data={}, status=200)
