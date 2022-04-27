@@ -23,6 +23,9 @@
         <span class="alert-button">
           <font-awesome-icon class="bell" icon="fa-solid fa-bell" />
          </span>
+        <span class="email">
+          <font-awesome-icon class="envelope" icon="fa-solid fa-envelope" />
+         </span>
     </div>
 
   </div>
@@ -38,10 +41,11 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 /* import specific icons */
 import { faFire } from '@fortawesome/free-solid-svg-icons'
 import { faBell } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 /* import font awesome icon component */
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-library.add(faFire,faBell)
+library.add(faFire,faBell,faEnvelope)
 
   export default {
     name: 'alertPage',
@@ -158,6 +162,12 @@ library.add(faFire,faBell)
 
     }
     .alert-button{
+      display: flex;
+      flex-direction:column;
+      margin-left:12px;
+
+    }
+    .email{
       display: flex;
       flex-direction:column;
       margin-left:12px;
