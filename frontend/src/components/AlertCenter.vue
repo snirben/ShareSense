@@ -1,6 +1,6 @@
 <template>
   <div class="boxs-warrper">
-  <div v-for="user in users" class="Personal-tab-container">
+  <div v-for="(user, index) in users" class="Personal-tab-container" :key="index">
     <div class="customer-photo">
       <span class="photo">
         <img src="https://365webresources.com/wp-content/uploads/2016/09/FREE-PROFILE-AVATARS.png">

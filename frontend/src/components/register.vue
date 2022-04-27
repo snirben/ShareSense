@@ -1,29 +1,58 @@
 <template>
     <div class="container" v-if="token==null">
-        <h1>Sign In</h1>
-        <form action="" method="post" @submit.prevent="login">
+        <h1>Sign Up</h1>
+        <form action="" method="post" @submit.prevent="register">
             <div>
                 <label for="username">
                     Username
                 </label>
                 <input v-model="username" type="text" id="username" name="username" placeholder="username">
             </div>
-            <div class="password">
+            <div>
                 <label for="password">
                     Password
                 </label>
                 <input v-model="password" type="password" id="password" name="password" placeholder="password">
             </div>
-          <p class="error" v-if="incorrectAuth">User name or password is incorrect</p>
             <div>
-              <button class="submit-login" type="submit">Login</button>
+                <label for="password2">
+                    Confirm Password
+                </label>
+                <input v-model="password2" type="password" id="password2" name="password2" placeholder="confirm password">
+            </div>
+            <div>
+                <label for="email">
+                    Email
+                </label>
+                <input v-model="email" type="email" id="email" name="email" placeholder="email">
+            </div>
+            <div>
+                <label for="first_name">
+                    First Name
+                </label>
+                <input v-model="first_name" type="text" id="first_name" name="first_name" placeholder="first name">
+            </div>
+             <div>
+                <label for="last_name">
+                    Last Name
+                </label>
+                <input v-model="last_name" type="text" id="last_name" name="last_name" placeholder="last name">
+            </div>
+             <div>
+                <label for="city">
+                    City
+                </label>
+                <input v-model="city" type="text" id="city" name="city" placeholder="city">
+            </div>
+          <p class="error" v-if="incorrectAuth">One or more of the fields is missing or incorrect</p>
+            <div>
+              <button class="submit-login" type="submit">Register</button>
             </div>
         </form>
         <div class="to-sign-up">
-            <p>Don't have an account? </p><a href=""> create</a>
+            <p>Already have an account? </p><a href=""> login</a>
         </div>
     </div>
-
 </template>
 
 
@@ -36,6 +65,11 @@ import axios from 'axios';
       return {
         username: '',
         password: '',
+        password2: '',
+        email: '',
+        first_name: '',
+        last_name: '',
+        city: '',
         incorrectAuth: false,
         token: null,
         redirect: {
@@ -46,10 +80,15 @@ import axios from 'axios';
       }
     },
     methods: {
-      login() {
-        axios.post('http://127.0.0.1:8000/login/', {
+      register() {
+        axios.post('http://127.0.0.1:8000/api/register/', {
           username: this.username,
-          password: this.password
+          password: this.password,
+          password2: this.password2,
+          email: this.email,
+          first_name: this.first_name,
+          last_name: this.last_name,
+          city: this.city,
         }).then(
             resp => {
               this.incorrectAuth = false;
@@ -60,7 +99,7 @@ import axios from 'axios';
         ).catch(
            err=> {this.incorrectAuth = true;
              localStorage.removeItem('user-token')
-           console.log(err)}
+           console.log(err.data)}
         )
       }
     }
@@ -71,7 +110,7 @@ import axios from 'axios';
 <style scoped lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 html, body{
-    height: 90%;
+    //height: 90%;
 }
 .container {
     display: flex;
@@ -80,7 +119,7 @@ html, body{
     justify-content: center;
     align-items: center;
     font-family: 'Nunito', sans-serif;
-    height: 100%;
+    //height: 100%;
 }
 
 h1{
@@ -88,7 +127,7 @@ h1{
     font-size: 40px;
 }
 
-input[type=password], input[type=text]{
+input{
     width: 100%;
     padding: 12px ;
     margin: 8px 0;
