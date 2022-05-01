@@ -27,6 +27,12 @@ class usersListApiView(APIView):
         serializer = UsersSerializer(users, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+class whoIsInAPanicApiView(APIView):
+    def get(self, request, *args, **kwargs):
+        users = User.objects.filter(isPanic=True, role=0)
+        serializer = UsersSerializer(users, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 class MyObtainTokenPairView(TokenObtainPairView):
     permission_classes = (AllowAny,)
