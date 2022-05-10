@@ -74,6 +74,10 @@ library.add(faFire,faBell,faEnvelope)
 
 <style scoped lang="scss">
 
+.bellAlert{
+  color: red;
+}
+
 .boxs-warrper{
   display: flex;
   flex-direction: row;
