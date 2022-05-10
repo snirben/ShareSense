@@ -23,7 +23,7 @@
         <span class="alert-button">
           <font-awesome-icon class="bell" icon="fa-solid fa-bell" />
          </span>
-        <span class="email">
+        <span @click="sendEmail" class="email">
           <font-awesome-icon class="envelope" icon="fa-solid fa-envelope" />
          </span>
     </div>
@@ -66,7 +66,20 @@ library.add(faFire,faBell,faEnvelope)
         ).catch(
            err=> {console.log(err)}
         )
+    },
+    methods:{
+      sendEmail(){
+        axios.post('http://127.0.0.1:8000/api/email', {}).then(
+            resp => {
+              alert("The email was sent successfully");
+              console.log(resp)
+            }
+        ).catch(
+           err=> {console.log(err)}
+        )
+      }
     }
+
   }
 
 </script>
