@@ -33,7 +33,6 @@ class whoIsInAPanicApiView(APIView):
         serializer = UsersSerializer(users, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-
 class MyObtainTokenPairView(TokenObtainPairView):
     permission_classes = (AllowAny,)
     serializer_class = MyTokenObtainPairSerializer
@@ -45,8 +44,8 @@ class RegisterView(generics.CreateAPIView):
 
 @api_view(['POST'])
 def sendEmail(request):
-    user= User.objects.get(id=2) 
-    # id =request.user.id
+    id = int(request.data['id'])
+    user= User.objects.get(id=id) 
     userDistrict= user.district
     users = User.objects.filter(role=1, district=userDistrict)
     for user in users:
@@ -58,3 +57,13 @@ def sendEmail(request):
             fail_silently=False,
         )
     return Response(data={}, status=200)
+
+@api_view(['POST'])
+def togglePanic(request):
+    user = User.objects.get(id = int(request.data['id']))
+    print(user.isPanic)
+    user.isPanic = not user.isPanic
+    print(user.isPanic)
+    user.save()
+    return Response(data={}, status=200)
+    

@@ -10,7 +10,7 @@ User = get_user_model()
 class UsersSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["first_name", "last_name", "city", "cam_ip", "district",'role', 'id']
+        fields = ["first_name", "last_name", "city", "cam_ip", "district",'role', 'id', 'isPanic', 'isFire']
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 

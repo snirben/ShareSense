@@ -20,10 +20,10 @@
         <span class="fire">
          <font-awesome-icon class="fire" icon="fa-solid fa-fire" />
          </span>
-        <span class="alert-button">
+        <span @click="togglePanic(user.id)" :class="{bellAlert: user.isPanic ,alertButton: !user.isPanic}">
           <font-awesome-icon class="bell" icon="fa-solid fa-bell" />
          </span>
-        <span @click="sendEmail" class="email">
+        <span @click="sendEmail(user.id)" class="email">
           <font-awesome-icon class="envelope" icon="fa-solid fa-envelope" />
          </span>
     </div>
@@ -57,8 +57,30 @@ library.add(faFire,faBell,faEnvelope)
     components:{
       FontAwesomeIcon,
     },
-    created(){
-              axios.get('http://127.0.0.1:8000/api/users', {}).then(
+    
+    methods:{
+      sendEmail(id){
+        axios.post('http://127.0.0.1:8000/api/email/', {"id": id}).then(
+            resp => {
+              alert("The email was sent successfully");
+              console.log(resp)
+            }
+        ).catch(
+           err=> {console.log(err)}
+        )
+      },
+      togglePanic(id){
+        axios.post('http://127.0.0.1:8000/api/togglePanic/', {"id": id}).then(
+            resp => {
+              this.$router.go();
+              console.log(resp)
+            }
+        ).catch(
+           err=> {console.log(err)}
+        )
+      },
+    getUsers(){
+      axios.get('http://127.0.0.1:8000/api/users/', {}).then(
             resp => {
               this.users = resp.data
               console.log(resp)
@@ -67,18 +89,10 @@ library.add(faFire,faBell,faEnvelope)
            err=> {console.log(err)}
         )
     },
-    methods:{
-      sendEmail(){
-        axios.post('http://127.0.0.1:8000/api/email', {}).then(
-            resp => {
-              alert("The email was sent successfully");
-              console.log(resp)
-            }
-        ).catch(
-           err=> {console.log(err)}
-        )
-      }
-    }
+     },
+    created(){
+              this.getUsers()
+    },
 
   }
 
@@ -89,6 +103,9 @@ library.add(faFire,faBell,faEnvelope)
 
 .bellAlert{
   color: red;
+  display: flex;
+  flex-direction:column;
+  margin-left:12px;
 }
 
 .boxs-warrper{
@@ -178,7 +195,7 @@ library.add(faFire,faBell,faEnvelope)
      justify-content: center;
 
     }
-    .alert-button{
+    .alertButton{
       display: flex;
       flex-direction:column;
       margin-left:12px;
