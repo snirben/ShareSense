@@ -36,29 +36,35 @@ def send_image(encoded_string):
 
 
 def main_loop(cam_url="http://192.168.1.130:8080/shot.jpg", show_window=False):
-    fire = False
-    img_resp = requests.get(cam_url)
-    encoded = base64.b64encode(img_resp.content).decode("utf-8")
-    pred = None
-    # Send Prediction
-    if datetime.now().second % 3 == 0:
-        pred = send_image(encoded)
-    print(pred)
-    img_arr = np.array(bytearray(img_resp.content), dtype=np.uint8)
-    img = cv2.imdecode(img_arr, -1)
-    if pred is not None:
-        fire = True if pred['label'] == '0' else False
-    if fire and show_window:
-        cv2.rectangle(img, (0, 0), (img.shape[1], img.shape[0]), (0, 0, 255), 100)
-        cv2.putText(img, 'FIRE!', (100, 250), color=(0, 0, 255), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=8,
-                    thickness=8)
-    if show_window:
-        cv2.imshow('Snir Phone', img)
-        if cv2.waitKey(1) == 27:
-            sys.exit(0)
-    print(fire)
+    try:
+        for i in range(10):
+            fire = False
+            img_resp = requests.get(cam_url)
+            encoded = base64.b64encode(img_resp.content).decode("utf-8")
+            pred = None
+            # Send Prediction
+            if datetime.now().second % 3 == 0:
+                pred = send_image(encoded)
+            img_arr = np.array(bytearray(img_resp.content), dtype=np.uint8)
+            img = cv2.imdecode(img_arr, -1)
+            if pred is not None:
+                fire = True if pred['label'] == '0' else False
+            if fire and show_window:
+                cv2.rectangle(img, (0, 0), (img.shape[1], img.shape[0]), (0, 0, 255), 100)
+                cv2.putText(img, 'FIRE!', (100, 250), color=(0, 0, 255), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=8,
+                            thickness=8)
+            if show_window:
+                cv2.imshow('Snir Phone', img)
+                if cv2.waitKey(1) == 27:
+                    sys.exit(0)
+            if fire:
+                return True
+        return False
+    except NameError:
+        print(NameError)
+        return False
 
 
 if __name__ == '__main__':
     while True:
-        main_loop()
+        main_loop(show_window=True)

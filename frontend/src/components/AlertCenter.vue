@@ -1,114 +1,160 @@
 <template>
-  <div class="boxs-warrper">
-  <div v-for="(user, index) in users" class="Personal-tab-container" :key="index">
-    <div class="customer-photo">
+  <div class="page-warrper">
+    <p>מוקד </p>
+    <div class="boxs-warrper">
+      <div v-for="(user, index) in users" class="Personal-tab-container" :key="index">
+        <div class="customer-photo">
       <span class="photo">
         <img src="https://365webresources.com/wp-content/uploads/2016/09/FREE-PROFILE-AVATARS.png">
       </span>
-    </div>
+        </div>
 
-    <div class="customer-details">
+        <div class="customer-details">
      <span class="user-name">
-          {{ user.first_name }} {{user.last_name}}
+          {{ user.first_name }} {{ user.last_name }}
         </span>
-      <span class="user-address">
+          <span class="user-address">
           {{ user.city || "Unknown" }}
        </span>
-    </div>
+        </div>
 
-    <div class="icons">
-        <span class="fire">
-         <font-awesome-icon class="fire" icon="fa-solid fa-fire" />
+        <div class="icons">
+        <span class="fire" @click="toggleFire(user)">
+         <font-awesome-icon class="fire" icon="fa-solid fa-fire"/>
          </span>
-        <span @click="togglePanic(user.id)" :class="{bellAlert: user.isPanic ,alertButton: !user.isPanic}">
-          <font-awesome-icon class="bell" icon="fa-solid fa-bell" />
+          <span @click="togglePanic(user)" :class="{bellAlert: user.isPanic ,alertButton: !user.isPanic}">
+          <font-awesome-icon class="bell" icon="fa-solid fa-bell"/>
          </span>
-        <span @click="sendEmail(user.id)" class="email">
-          <font-awesome-icon class="envelope" icon="fa-solid fa-envelope" />
+          <span @click="sendEmail(user)" class="email">
+          <font-awesome-icon class="envelope" icon="fa-solid fa-envelope"/>
          </span>
-    </div>
+        </div>
 
+      </div>
+    </div>
   </div>
-</div>
-</template>
 
+</template>
 
 
 <script>
 import axios from 'axios';
 
-import { library } from '@fortawesome/fontawesome-svg-core'
+import {library} from '@fortawesome/fontawesome-svg-core'
 /* import specific icons */
-import { faFire } from '@fortawesome/free-solid-svg-icons'
-import { faBell } from '@fortawesome/free-solid-svg-icons'
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import {faFire} from '@fortawesome/free-solid-svg-icons'
+import {faBell} from '@fortawesome/free-solid-svg-icons'
+import {faEnvelope} from '@fortawesome/free-solid-svg-icons'
 /* import font awesome icon component */
 
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-library.add(faFire,faBell,faEnvelope)
+import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 
-  export default {
-    name: 'alertPage',
-    data () {
-      return {
-        users: {},
-      }
+library.add(faFire, faBell, faEnvelope)
+
+export default {
+  name: 'alertPage',
+  data() {
+    return {
+      users: {},
+    }
+  },
+  components: {
+    FontAwesomeIcon,
+  },
+  methods: {
+    getCams(){
+            axios.get('http://127.0.0.1:5000/cams_check', {}).then(
+          resp => {
+            console.log(resp)
+          }
+      ).catch(
+          err => {
+            console.log(err)
+          }
+      )
     },
-    components:{
-      FontAwesomeIcon,
+    sendEmail(user) {
+      if (!user.isPanic && !user.isFire)
+        return
+
+      axios.post('http://127.0.0.1:8000/api/email/', {"id": user.id}).then(
+          resp => {
+            alert("The email was sent successfully");
+            console.log(resp)
+          }
+      ).catch(
+          err => {
+            console.log(err)
+          }
+      )
     },
-    
-    methods:{
-      sendEmail(id){
-        axios.post('http://127.0.0.1:8000/api/email/', {"id": id}).then(
-            resp => {
-              alert("The email was sent successfully");
-              console.log(resp)
-            }
-        ).catch(
-           err=> {console.log(err)}
-        )
-      },
-      togglePanic(id){
-        axios.post('http://127.0.0.1:8000/api/togglePanic/', {"id": id}).then(
-            resp => {
-              this.$router.go();
-              console.log(resp)
-            }
-        ).catch(
-           err=> {console.log(err)}
-        )
-      },
-    getUsers(){
+    togglePanic(user) {
+      if (!user.isPanic)
+        return
+
+      axios.post('http://127.0.0.1:8000/api/togglePanic/', {"id": user.id}).then(
+          resp => {
+            this.getUsers()
+            console.log(resp)
+          }
+      ).catch(
+          err => {
+            console.log(err)
+          }
+      )
+    },
+    toggleFire(user) {
+      if (!user.isFire)
+        return
+
+      axios.post('http://127.0.0.1:8000/api/toggleFire/', {"id": user.id}).then(
+          resp => {
+            this.getUsers()
+            console.log(resp)
+          }
+      ).catch(
+          err => {
+            console.log(err)
+          }
+      )
+    },
+    getUsers() {
       axios.get('http://127.0.0.1:8000/api/users/', {}).then(
-            resp => {
-              this.users = resp.data
-              console.log(resp)
-            }
-        ).catch(
-           err=> {console.log(err)}
-        )
+          resp => {
+            this.users = resp.data
+          }
+      ).catch(
+          err => {
+            console.log(err)
+          }
+      )
     },
-     },
-    created(){
-              this.getUsers()
-    },
+  },
+  created() {
+    this.getUsers()
+    this.interval = setInterval(() => this.getCams(), 10000);
+  },
 
-  }
+}
 
 </script>
 
 
 <style scoped lang="scss">
 
-.bellAlert{
-  color: red;
+.page-warrper {
   display: flex;
-  flex-direction:column;
-  margin-left:12px;
+  flex-direction: column;
+
+  p {
+    margin: 0;
+    padding-bottom: 10px;
+    color: darkred;
+    font-size: 50px;
+  }
 }
 
-.boxs-warrper{
+.boxs-warrper {
   display: flex;
   flex-direction: row;
   gap: 20px;
@@ -117,94 +163,112 @@ library.add(faFire,faBell,faEnvelope)
 }
 
 
-.Personal-tab-container{
-  display:flex;
-  flex-direction:column;
+.Personal-tab-container {
+  display: flex;
+  flex-direction: column;
   justify-content: flex-start;
- // align-items:center;
- border: 2px solid rgba(0, 0, 0, 0.1);
+  // align-items:center;
+  border: 2px solid rgba(0, 0, 0, 0.1);
   width: 150px;
 
-  .vertical{
-     border-left: 2px dotted rgba(0, 0, 0, 0.1);
-     height: 108px;
+  .vertical {
+    border-left: 2px dotted rgba(0, 0, 0, 0.1);
+    height: 108px;
   }
-  .customer-details{
+
+  .customer-details {
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     justify-content: center;
-    align-items:center;
+    align-items: center;
     // margin-top:5px;
     // margin-left:15px;
-    .user-name{
-    display: flex;
-    flex-direction:column;
-    justify-content: center;
-     align-items:center;
-    font-family: 'Anybody', cursive;
-    font-family: 'Archivo', sans-serif;
-    font-family: 'Poppins', sans-serif;
-    font-family: 'Varela Round', sans-serif;
-      font-size:20px;
-      font-weight: bold;
-    }
-    .user-address{
-     display: flex;
-    flex-direction:column;
-    justify-content: center;
-      align-items:center;
-     font-family: 'Anybody', cursive;
+    .user-name {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Anybody', cursive;
       font-family: 'Archivo', sans-serif;
       font-family: 'Poppins', sans-serif;
       font-family: 'Varela Round', sans-serif;
-      font-size:14px;
-      color:gray;
-      margin-bottom:12px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .user-address {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Anybody', cursive;
+      font-family: 'Archivo', sans-serif;
+      font-family: 'Poppins', sans-serif;
+      font-family: 'Varela Round', sans-serif;
+      font-size: 14px;
+      color: gray;
+      margin-bottom: 12px;
     }
 
   }
-  .customer-photo{
-   display: flex;
-   flex-direction:column;
-   justify-content: center;
-    align-items:center;
-    .photo{
-      display:flex;
-      flex-direction:column;
+
+  .customer-photo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .photo {
+      display: flex;
+      flex-direction: column;
       width: 80px;
       height: 80px;
       border-radius: 50%;
       overflow: hidden;
-      margin-top:12px;
-      margin-bottom:12px;
-      box-shadow:
-       inset 0 -3em 3em rgba(0,0,0,0.1),
-             0 0  0 2.5px rgb(255,255,255),
-             0.3em 0.3em 1em rgba(0,0,0,0.2);
+      margin-top: 12px;
+      margin-bottom: 12px;
+      box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1),
+      0 0 0 2.5px rgb(255, 255, 255),
+      0.3em 0.3em 1em rgba(0, 0, 0, 0.2);
 
     }
   }
-  .icons{
+
+  .icons {
     display: flex;
-   flex-direction:row;
-   justify-content: center;
-   margin-bottom:12px;
-    .fire{
-     display: flex;
-     flex-direction:column;
-     justify-content: center;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 12px;
+
+    .fire {
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
 
     }
-    .alertButton{
-      display: flex;
-      flex-direction:column;
-      margin-left:12px;
 
-    }
-    .email{
+    .alertButton {
+      cursor: pointer;
       display: flex;
-      flex-direction:column;
-      margin-left:12px;
+      flex-direction: column;
+      margin-left: 12px;
+
+
+      .bellAlert {
+        cursor: pointer;
+        color: red;
+        display: flex;
+        flex-direction: column;
+        margin-left: 12px;
+      }
+    }
+
+    .email {
+      display: flex;
+      flex-direction: column;
+      margin-left: 12px;
+      cursor: pointer;
 
     }
   }

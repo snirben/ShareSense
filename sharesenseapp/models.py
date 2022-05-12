@@ -10,6 +10,7 @@ class SenseUser(AbstractUser):
     phone = models.CharField(max_length=50, null=False)
     email = models.CharField(max_length=50, null=False)
     city = models.CharField(max_length=50, null=False)
+    address = models.CharField(max_length=50, null=False, default="")
     cam_ip = models.CharField(max_length=50, null=True,default='localhost')
     district = models.CharField(choices = DISTRICT_CHOICES, max_length=30, default=9)
     isPanic = models.BooleanField(default=False)
