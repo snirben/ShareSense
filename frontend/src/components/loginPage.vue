@@ -1,27 +1,27 @@
 <template>
 
   <div class="container" v-if="token==null">
-    <h1>Sign In</h1>
+    <h1>התחברות</h1>
     <form action="" method="post" @submit.prevent="login">
       <div>
         <label for="username">
-          Username
+          שם משתמש
         </label>
         <input v-model="username" type="text" id="username" name="username" placeholder="username">
       </div>
       <div class="password">
         <label for="password">
-          Password
+          סיסמה
         </label>
         <input v-model="password" type="password" id="password" name="password" placeholder="password">
       </div>
       <p class="error" v-if="incorrectAuth">User name or password is incorrect</p>
       <div>
-        <button class="submit-login" type="submit">Login</button>
+        <button class="submit-login" type="submit">התחבר</button>
       </div>
     </form>
     <div class="to-sign-up">
-      <p>Don't have an account? </p><a @click="register"> create</a>
+      <p><a @click="register"> צור חשבון</a> </p><p>?אין לך עדיין חשבון </p>
     </div>
   </div>
 
@@ -81,7 +81,7 @@ export default {
 
 <style scoped lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Varela+Round&display=swap');
 html, body {
   height: 90%;
 }
@@ -93,6 +93,7 @@ html, body {
   justify-content: center;
   align-items: center;
   font-family: 'Nunito', sans-serif;
+font-family: 'Varela Round', sans-serif;
   height: 100%;
 }
 
@@ -107,6 +108,7 @@ input[type=password], input[type=text] {
   margin: 8px 0;
   box-sizing: border-box;
   font-family: 'Nunito', sans-serif;
+font-family: 'Varela Round', sans-serif;
   border-radius: 5px;
   border: 1px solid gray;
 }
@@ -122,7 +124,8 @@ input[type=password], input[type=text] {
   padding: 8px;
   margin-top: 14px;
   width: 100%;
-
+font-family: 'Nunito', sans-serif;
+font-family: 'Varela Round', sans-serif;
 }
 
 .submit-login:hover {

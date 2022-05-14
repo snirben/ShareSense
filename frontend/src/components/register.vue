@@ -1,75 +1,75 @@
 <template>
   <div class="container" v-if="token==null">
-    <h1>Sign Up</h1>
+    <h1>הרשמה</h1>
     <form action="" method="post" @submit.prevent="register">
       <div>
         <label for="username">
-          Username
+          שם משתמש
         </label>
-        <input v-model="username" type="text" id="username" name="username" placeholder="username">
+        <input v-model="username" type="text" id="username" name="username" placeholder="שם משתמש">
       </div>
       <div>
         <label for="password">
-          Password
+          סיסמה
         </label>
-        <input v-model="password" type="password" id="password" name="password" placeholder="password">
+        <input v-model="password" type="password" id="password" name="password" placeholder="סיסמה">
       </div>
       <div>
         <label for="password2">
-          Confirm Password
+          אישור סיסמה
         </label>
-        <input v-model="password2" type="password" id="password2" name="password2" placeholder="confirm password">
+        <input v-model="password2" type="password" id="password2" name="password2" placeholder="אישור סיסמה">
       </div>
       <div>
         <label for="email">
-          Email
+          מייל
         </label>
-        <input v-model="email" type="email" id="email" name="email" placeholder="email">
+        <input v-model="email" type="email" id="email" name="email" placeholder="מייל">
       </div>
       <div>
         <label for="first_name">
-          First Name
+          שם פרטי
         </label>
-        <input v-model="first_name" type="text" id="first_name" name="first_name" placeholder="first name">
+        <input v-model="first_name" type="text" id="first_name" name="first_name" placeholder="שם פרטי">
       </div>
       <div>
         <label for="last_name">
-          Last Name
+          שם משפחה
         </label>
-        <input v-model="last_name" type="text" id="last_name" name="last_name" placeholder="last name">
+        <input v-model="last_name" type="text" id="last_name" name="last_name" placeholder="שם משפחה">
       </div>
       <div>
         <label for="city">
-          City
+          עיר
         </label>
-        <input v-model="city" type="text" id="city" name="city" placeholder="city">
+        <input v-model="city" type="text" id="city" name="city" placeholder="עיר">
       </div>
       <div>
         <label for="address">
-          Address
+          כתובת
         </label>
-        <input v-model="address" type="text" id="address" name="address" placeholder="address">
+        <input v-model="address" type="text" id="address" name="address" placeholder="כתובת">
       </div>
       <div>
         <label for="role">
-          Role
+          סוג משתמש
         </label>
         <v-select v-model="role" :options="[{label: 'Regular User', code: '0'},{label: 'Good Pepole', code: '1'}]"/>
       </div>
       <div>
         <label for="district">
-          District
+          מחוז
         </label>
         <v-select v-model="district"
                   :options="[{label: 'North', code: 'North'},{label: 'South', code: 'South'},{label: 'Center', code: 'Center'}]"/>
       </div>
-      <p class="error" v-if="incorrectAuth">One or more of the fields is missing or incorrect</p>
+      <p class="error" v-if="incorrectAuth">אחד או יותר מהנתונים חסרים או לא תקינים</p>
       <div>
-        <button class="submit-login" type="submit">Register</button>
+        <button class="submit-login" type="submit">הרשם</button>
       </div>
     </form>
     <div class="to-sign-up">
-      <p>Already have an account? </p><a @click="login"> login</a>
+      <a @click="login"> התחבר</a><p>?יש לך כבר חשבון </p>
     </div>
   </div>
 </template>
@@ -151,6 +151,7 @@ export default {
 
 <style scoped lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Varela+Round&display=swap');
 
 html, body {
   //height: 90%;
@@ -162,7 +163,8 @@ html, body {
   align-content: space-between;
   justify-content: center;
   align-items: center;
-  font-family: 'Nunito', sans-serif;
+    font-family: 'Nunito', sans-serif;
+font-family: 'Varela Round', sans-serif;
   //height: 100%;
 }
 
@@ -176,9 +178,10 @@ input {
   padding: 12px;
   margin: 8px 0;
   box-sizing: border-box;
-  font-family: 'Nunito', sans-serif;
   border-radius: 5px;
   border: 1px solid gray;
+    font-family: 'Nunito', sans-serif;
+font-family: 'Varela Round', sans-serif;
 }
 
 .submit-login {
@@ -193,6 +196,8 @@ input {
   margin-top: 14px;
   width: 100%;
   cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+font-family: 'Varela Round', sans-serif;
 
 }
 
