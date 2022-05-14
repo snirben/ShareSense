@@ -60,10 +60,11 @@ export default {
   },
   components: {
     FontAwesomeIcon,
+
   },
   methods: {
-    getCams(){
-            axios.get('http://127.0.0.1:5000/cams_check', {}).then(
+    getCams() {
+      axios.get('http://127.0.0.1:5000/cams_check', {}).then(
           resp => {
             console.log(resp)
           }
@@ -130,9 +131,28 @@ export default {
       )
     },
   },
+  mounted: function () {
+    let connection = new WebSocket('ws://localhost:8000/ws/socket-server/');
+    connection.onmessage = (event) => {
+      // Vue data binding means you don't need any extra work to
+      // update your UI. Just set the `time` and Vue will automatically
+      // update the `<h2>`.
+      console.log(event)
+      this.getUsers()
+
+    }
+    connection.onopen = (event) => {
+      // Vue data binding means you don't need any extra work to
+      // update your UI. Just set the `time` and Vue will automatically
+      // update the `<h2>`.
+      console.log(event)
+    }
+  },
   created() {
     this.getUsers()
-    this.interval = setInterval(() => this.getCams(), 10000);
+    //this.interval = setInterval(() => this.getCams(), 10000);
+
+
   },
 
 }
@@ -253,8 +273,7 @@ export default {
       display: flex;
       flex-direction: column;
       margin-left: 12px;
-
-
+    }
       .bellAlert {
         cursor: pointer;
         color: red;
@@ -262,7 +281,6 @@ export default {
         flex-direction: column;
         margin-left: 12px;
       }
-    }
 
     .email {
       display: flex;

@@ -11,7 +11,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
-
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
 User = get_user_model()
 
 
@@ -78,11 +79,12 @@ def sendEmail(request):
         )
     return Response(data={}, status=200)
 
-
 @api_view(['POST'])
 def togglePanic(request):
     print(request.data)
     user = User.objects.get(id=int(request.data['id']))
+    layer = get_channel_layer()
+    async_to_sync(layer.group_send)("update_users", {"type": "prep",})
     user.isPanic = not user.isPanic
     user.save()
     return Response(data={}, status=200)
@@ -92,5 +94,7 @@ def togglePanic(request):
 def toggleFire(request):
     user = User.objects.get(id=int(request.data['id']))
     user.isFire = not user.isFire
+    layer = get_channel_layer()
+    async_to_sync(layer.group_send)("update_users", {"type": "prep",})
     user.save()
     return Response(data={}, status=200)
