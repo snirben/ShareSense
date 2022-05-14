@@ -51,6 +51,9 @@ class RegisterSerializer(serializers.ModelSerializer):
     city = serializers.CharField(write_only=True, required=True)
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])
     password2 = serializers.CharField(write_only=True, required=True)
+    address = serializers.CharField(write_only=True, required=True)
+    role = serializers.IntegerField(write_only=True, required=True)
+    district = serializers.CharField(write_only=True, required=True)
 
     class Meta:
         model = User
@@ -74,7 +77,11 @@ class RegisterSerializer(serializers.ModelSerializer):
             email=validated_data['email'],
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name'],
-            city=validated_data['city']
+            city=validated_data['city'],
+            role = validated_data['role'],
+            district = validated_data['district'],
+            address = validated_data['address'],
+
         )
 
         user.set_password(validated_data['password'])

@@ -100,9 +100,9 @@ export default {
       incorrectAuth: false,
       token: null,
       redirect: {
-        '0': 'panicbutton',
-        '1': 'goodmans',
-        '2': 'alertcenter',
+        '0': '/panicbutton',
+        '1': '/goodmans',
+        '2': '/alertcenter',
       }
     }
   },
@@ -121,15 +121,16 @@ export default {
         district: this.district.code
       }).then(
           resp => {
-            // this.incorrectAuth = false;
-            // this.token = resp.data.access
-            // this.$router.push({path: this.redirect[resp.data.role]});
-            // localStorage.setItem('user-token', resp.data.access)
-            this.$router.push({
-              name: this.redirect[resp.data.role],
-              params: {id: resp.data.id, isPanic: resp.data.isPanic}
-            });
+            this.incorrectAuth = false;
+            this.token = resp.data.access
+            this.$router.push({path: '/'});
             localStorage.setItem('user-token', resp.data.access)
+            console.log(resp);
+            // this.$router.push({
+            //   name: this.redirect[resp.data.role],
+            //   params: {id: resp.data.id, isPanic: resp.data.isPanic}
+            // });
+            // localStorage.setItem('user-token', resp.data.access)
           }
       ).catch(
           err => {

@@ -32,7 +32,7 @@ const router = new Router({
 			component : () => import('./components/panicButton.vue')
 		},
 		{
-			path      : '/goodMans',
+			path      : '/goodmans',
 			name      : 'goodmans',
 			component : () => import('./components/goodMans.vue')
 		}

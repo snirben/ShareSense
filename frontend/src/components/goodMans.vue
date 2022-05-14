@@ -1,7 +1,7 @@
 <template>
  <div class="text-container">
   <div class ="text-box">
-Alerts and reports will be sent automatically to your personal email
+התראות ודיווחים ישלחו אליך למייל באופן אוטומטי 
       
 
   </div>
@@ -31,6 +31,9 @@ Alerts and reports will be sent automatically to your personal email
   background-size: 1750px 750px;
   filter: grayscale(75%);
   .text-box{
+    font-weight: bold;
+    font-size: 24px;
+    color: black;
   display:flex;
   flex-direction:column;
   border-radius:100px;
