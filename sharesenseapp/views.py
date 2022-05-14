@@ -85,6 +85,7 @@ def togglePanic(request):
     user = User.objects.get(id=int(request.data['id']))
     layer = get_channel_layer()
     async_to_sync(layer.group_send)("update_users", {"type": "prep",})
+    async_to_sync(layer.group_send)("SOS", {"type": "prep", })
     user.isPanic = not user.isPanic
     user.save()
     return Response(data={}, status=200)

@@ -152,7 +152,7 @@ export default {
   },
   created() {
     this.getUsers()
-    //this.interval = setInterval(() => this.getCams(), 10000);
+    this.interval = setInterval(() => this.getCams(), 10000);
 
 
   },

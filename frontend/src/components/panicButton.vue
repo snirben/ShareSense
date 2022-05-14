@@ -43,16 +43,18 @@ export default {
     }
   },
   created() {
-    this.isPanic = this.$route.params.isPanic
-    this.name = this.$route.params.name
+    let ispanic = {'false': false , 'true': true}
+    this.isPanic = ispanic[localStorage.getItem("isPanic")]
+    this.name = localStorage.getItem("name")
   },
   methods: {
     togglePanic() {
       console.log(this)
-      axios.post('http://127.0.0.1:8000/api/togglePanic/', {"id": this.$route.params.id}).then(
+      axios.post('http://127.0.0.1:8000/api/togglePanic/', {"id": localStorage.getItem("user-id") }).then(
           resp => {
             console.log(resp)
             this.isPanic = true;
+            localStorage.setItem('isPanic', 'true')
           }
       ).catch(
           err => {
@@ -60,7 +62,25 @@ export default {
           }
       )
     }
-  }
+  },
+    mounted: function () {
+    let connection = new WebSocket('ws://localhost:8000/ws/sos/');
+    connection.onmessage = (event) => {
+      // Vue data binding means you don't need any extra work to
+      // update your UI. Just set the `time` and Vue will automatically
+      // update the `<h2>`.
+      console.log(event)
+      localStorage.setItem('isPanic', 'false')
+      this.isPanic = false
+
+    }
+    connection.onopen = (event) => {
+      // Vue data binding means you don't need any extra work to
+      // update your UI. Just set the `time` and Vue will automatically
+      // update the `<h2>`.
+      console.log(event)
+    }
+  },
 }
 </script>
 

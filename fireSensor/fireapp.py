@@ -15,10 +15,13 @@ def cams():
         cams = response.json()
         for cam in cams:
             flag = 0
-            result = predict.main_loop(cam_url=cam['cam_ip'] + '/shot.jpg', show_window=True)
-            if result and flag == 0:
-                flag = 1
-                requests.post('http://localhost:8000/api/toggleFire/', {'id': cam['id']})
+            try:
+                result = predict.main_loop(cam_url=cam['cam_ip'] + '/shot.jpg', show_window=True)
+                if result and flag == 0:
+                    flag = 1
+                    requests.post('http://localhost:8000/api/toggleFire/', {'id': cam['id']})
+            except:
+                next
     if flag == 1:
         return 'True'
     return 'False'

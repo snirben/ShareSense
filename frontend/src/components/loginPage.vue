@@ -60,7 +60,12 @@ export default {
               name: this.redirect[resp.data.role],
               params: {id: resp.data.id, isPanic: resp.data.isPanic, name: resp.data.name}
             });
-            localStorage.setItem('user-token', resp.data.access)
+            localStorage.setItem('name', resp.data.name)
+            if(resp.data.role !== 2) {
+              localStorage.setItem('user-token', resp.data.access)
+              localStorage.setItem('user-id', resp.data.id)
+              localStorage.setItem('isPanic', resp.data.isPanic)
+            }
           }
       ).catch(
           err => {
