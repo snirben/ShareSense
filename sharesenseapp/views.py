@@ -25,7 +25,7 @@ class usersListApiView(APIView):
         '''
         List all the todo items for given requested user
         '''
-        users = User.objects.filter(role=0)
+        users = User.objects.filter(role=0).order_by('id')
         serializer = UsersSerializer(users, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

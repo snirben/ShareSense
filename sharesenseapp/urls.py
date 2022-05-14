@@ -1,6 +1,6 @@
 from django.urls import path
 from sharesenseapp.views import MyObtainTokenPairView, RegisterView, togglePanic, usersListApiView, sendEmail, \
-    whoIsInAPanicApiView,fireCamsListApiView
+    whoIsInAPanicApiView,fireCamsListApiView, toggleFire
 from rest_framework_simplejwt.views import TokenRefreshView
 
 urlpatterns = [
@@ -11,7 +11,7 @@ urlpatterns = [
     path('api/email/', sendEmail),
     path('api/panic/', whoIsInAPanicApiView.as_view()),
     path('api/togglePanic/', togglePanic),
-    path('api/toggleFire/', togglePanic),
+    path('api/toggleFire/', toggleFire),
     path('api/getcams/', fireCamsListApiView.as_view()),
 
 ]

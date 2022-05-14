@@ -16,7 +16,9 @@ def cams():
         for cam in cams:
             flag = 0
             try:
+                print(cam['id'])
                 result = predict.main_loop(cam_url=cam['cam_ip'] + '/shot.jpg', show_window=True)
+                print(result)
                 if result and flag == 0:
                     flag = 1
                     requests.post('http://localhost:8000/api/toggleFire/', {'id': cam['id']})

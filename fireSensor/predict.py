@@ -34,11 +34,19 @@ def send_image(encoded_string):
     data = predict(request_dict)
     return data
 
-
+import os
 def main_loop(cam_url="http://192.168.1.130:8080/shot.jpg", show_window=False):
     try:
         for i in range(10):
+            print(i)
             fire = False
+            response = os.system("ping -c 1 " + cam_url)
+
+            # and then check the response...
+            if response == 0:
+                print('up')
+            else:
+                raise
             img_resp = requests.get(cam_url)
             encoded = base64.b64encode(img_resp.content).decode("utf-8")
             pred = None
@@ -60,8 +68,8 @@ def main_loop(cam_url="http://192.168.1.130:8080/shot.jpg", show_window=False):
             if fire:
                 return True
         return False
-    except NameError:
-        print(NameError)
+    except BaseException as err:
+        print(f"Unexpected {err=}, {type(err)=}")
         return False
 
 
