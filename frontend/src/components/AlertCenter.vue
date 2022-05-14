@@ -22,8 +22,8 @@
         <span class="fire" @click="toggleFire(user)">
          <font-awesome-icon class="fire" icon="fa-solid fa-fire"/>
          </span>
-          <span @click="togglePanic(user)" :class="{bellAlert: user.isPanic ,alertButton: !user.isPanic}">
-          <font-awesome-icon class="bell" icon="fa-solid fa-bell"/>
+          <span @click="togglePanic(user)">
+          <font-awesome-icon class="bell" :class="{'bellAlert': user.isPanic ,'alertButton': !user.isPanic}" icon="fa-solid fa-bell"/>
          </span>
           <span @click="sendEmail(user)" class="email">
           <font-awesome-icon class="envelope" icon="fa-solid fa-envelope"/>

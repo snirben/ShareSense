@@ -1,6 +1,7 @@
 <template>
   <div class="panic-wrapper">
-    <div v-if="isPanic" class="panic-container">
+  <h2>Hello {{ name }}</h2>
+    <div v-if="!isPanic" class="panic-container">
       <div class="punic-button" @click="togglePanic">
     <span class="sos-text">
       SOS
@@ -37,20 +38,21 @@ export default {
   name: 'panicButton',
   data() {
     return {
-      isPanic: true
-
+      isPanic: "",
+      name: ""
     }
   },
   created() {
-    this.isPanic = !this.$route.params.isPanic
+    this.isPanic = this.$route.params.isPanic
+    this.name = this.$route.params.name
   },
   methods: {
     togglePanic() {
-      this.help = false
       console.log(this)
       axios.post('http://127.0.0.1:8000/api/togglePanic/', {"id": this.$route.params.id}).then(
           resp => {
             console.log(resp)
+            this.isPanic = true;
           }
       ).catch(
           err => {

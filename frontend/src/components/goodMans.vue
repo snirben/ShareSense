@@ -1,10 +1,10 @@
 <template>
  <div class="text-container">
   <div class ="text-box">
-      <span class ="text">
-      Alerts and reports will be sent automatically to your personal email
-    <span/>
+Alerts and reports will be sent automatically to your personal email
+      
 
+  </div>
   </div>
 
 </template>

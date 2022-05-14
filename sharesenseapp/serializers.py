@@ -30,6 +30,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         data.update({'role': self.user.role})
         data.update({'id': self.user.id})
         data.update({'isPanic': self.user.isPanic})
+        data.update({'name': self.user.first_name})
         # and everything else you want to send in the response
         return data
 

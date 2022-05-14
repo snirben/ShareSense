@@ -1,4 +1,5 @@
 <template>
+
   <div class="container" v-if="token==null">
     <h1>Sign In</h1>
     <form action="" method="post" @submit.prevent="login">
@@ -40,7 +41,7 @@ export default {
       token: null,
       redirect: {
         '0': 'panicbutton',
-        '1': 'reguler',
+        '1': 'goodmans',
         '2': 'alertcenter',
       }
     }
@@ -52,11 +53,12 @@ export default {
         password: this.password
       }).then(
           resp => {
+            console.log(resp.data)
             this.incorrectAuth = false;
             this.token = resp.data.access
             this.$router.push({
               name: this.redirect[resp.data.role],
-              params: {id: resp.data.id, isPanic: resp.data.isPanic}
+              params: {id: resp.data.id, isPanic: resp.data.isPanic, name: resp.data.name}
             });
             localStorage.setItem('user-token', resp.data.access)
           }

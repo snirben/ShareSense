@@ -30,6 +30,11 @@ const router = new Router({
 			path      : '/panicbutton',
 			name      : 'panicbutton',
 			component : () => import('./components/panicButton.vue')
+		},
+		{
+			path      : '/goodMans',
+			name      : 'goodmans',
+			component : () => import('./components/goodMans.vue')
 		}
 	]
 });
