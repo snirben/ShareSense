@@ -66,12 +66,25 @@ export default {
 
 
 <style scoped lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Varela+Round&display=swap');
+
+
+.panic-wrapper{
+
+  h1{
+    color: #F55353;
+        font-family: 'Nunito', sans-serif;
+font-family: 'Varela Round', sans-serif;
+  }
+}
 .panic-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 60px;
+          font-family: 'Nunito', sans-serif;
+font-family: 'Varela Round', sans-serif;
 
   .punic-button {
     color: white;

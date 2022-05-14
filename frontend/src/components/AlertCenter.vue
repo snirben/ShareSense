@@ -1,6 +1,8 @@
 <template>
   <div class="page-warrper">
-    <p>מוקד </p>
+  <div>
+    <h1>מוקד</h1> 
+    </div>
     <div class="boxs-warrper">
       <div v-for="(user, index) in users" class="Personal-tab-container" :key="index">
         <div class="customer-photo">
@@ -161,7 +163,7 @@ export default {
 
 
 <style scoped lang="scss">
-
+@import url('https://fonts.googleapis.com/css2?family=Nunito&family=Varela+Round&display=swap');
 .page-warrper {
   display: flex;
   flex-direction: column;
@@ -171,6 +173,12 @@ export default {
     padding-bottom: 10px;
     color: darkred;
     font-size: 50px;
+  }
+
+  h1 {
+    font-size: 50px;
+    font-family: 'Nunito', sans-serif;
+font-family: 'Varela Round', sans-serif;
   }
 }
 

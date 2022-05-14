@@ -167,7 +167,7 @@ html, body {
 }
 
 h1 {
-  color: rgba(252, 176, 69, 1);
+  color: #F55353;
   font-size: 40px;
 }
 
@@ -188,15 +188,17 @@ input {
   color: black;
   border-radius: 5px;
   font-size: 17px;
-  border: 3px solid rgba(252, 176, 69, 1);
+  border: 3px solid #F55353;
   padding: 8px;
   margin-top: 14px;
   width: 100%;
+  cursor: pointer;
 
 }
 
 .submit-login:hover {
-  background: rgba(252, 176, 69, 1);
+  background: #F55353;
+  cursor: pointer;
 }
 
 .to-sign-up {
