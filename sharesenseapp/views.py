@@ -67,7 +67,7 @@ def sendEmail(request):
     user = User.objects.get(id=id)
     userDistrict = user.district
     users = User.objects.filter(role=1, district=userDistrict)
-    message = 'אדם זקוק לעזרה בכתובת:   %s% s, לעדכונך' % user.address, user.city
+    message = "אדם זקוק לעזרה בכתובת:   %s,%s, לעדכונך" % (user.address ,user.city)
 
     for user in users:
         send_mail(

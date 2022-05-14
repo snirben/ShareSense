@@ -76,6 +76,11 @@ export default {
         font-family: 'Nunito', sans-serif;
 font-family: 'Varela Round', sans-serif;
   }
+
+  p{
+            font-family: 'Nunito', sans-serif;
+font-family: 'Varela Round', sans-serif;
+  }
 }
 .panic-container {
   display: flex;
