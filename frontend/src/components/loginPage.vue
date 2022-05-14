@@ -21,7 +21,7 @@
       </div>
     </form>
     <div class="to-sign-up">
-      <p>Don't have an account? </p><a href="#" @click="register"> create</a>
+      <p>Don't have an account? </p><a @click="register"> create</a>
     </div>
   </div>
 
@@ -130,6 +130,7 @@ input[type=password], input[type=text] {
 }
 
 .to-sign-up {
+  cursor: pointer;
   display: flex;
   flex-direction: row;
   gap: 5px;

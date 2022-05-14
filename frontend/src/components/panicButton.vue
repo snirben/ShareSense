@@ -1,18 +1,18 @@
 <template>
   <div class="panic-wrapper">
-  <h2>Hello {{ name }}</h2>
+  <h1>{{ name }} שלום</h1>
     <div v-if="!isPanic" class="panic-container">
       <div class="punic-button" @click="togglePanic">
     <span class="sos-text">
       SOS
     </span>
         <span class="sos-subtext">
-      Tap to Activate
+      לחץ להפעלה
     </span>
       </div>
 
       <div class="panic-button-text">
-        Tapping SOS will alert your emergency contacts and update them with your current location, if available.
+        לחיצה על לחצן המצוקה תתריע בפני המוקד החירום וזו תשלח אליך סיוע בהקדם
       </div>
 
 

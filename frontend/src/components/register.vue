@@ -69,7 +69,7 @@
       </div>
     </form>
     <div class="to-sign-up">
-      <p>Already have an account? </p><a href=""> login</a>
+      <p>Already have an account? </p><a @click="login"> login</a>
     </div>
   </div>
 </template>
@@ -139,6 +139,10 @@ export default {
             console.log(err.data)
           }
       )
+    },
+    login() {
+      console.log("test")
+      this.$router.push({path: '/'}).catch();
     }
   }
 }
@@ -196,6 +200,7 @@ input {
 }
 
 .to-sign-up {
+  cursor: pointer;
   display: flex;
   flex-direction: row;
   gap: 5px;
