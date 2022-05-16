@@ -17,7 +17,7 @@ def cams():
             flag = 0
             try:
                 print(cam['id'])
-                result = predict.main_loop(cam_url=cam['cam_ip'] + '/shot.jpg', show_window=True)
+                result = predict.main_loop(cam_ip=cam['cam_ip'], show_window=False)
                 print(result)
                 if result and flag == 0:
                     flag = 1

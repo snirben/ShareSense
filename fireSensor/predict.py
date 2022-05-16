@@ -1,3 +1,4 @@
+#from ossaudiodev import error
 import tensorflow as tf
 from keras.preprocessing import image
 import cv2
@@ -35,24 +36,24 @@ def send_image(encoded_string):
     return data
 
 import os
-def main_loop(cam_url="http://192.168.1.130:8080/shot.jpg", show_window=False):
+def main_loop(cam_ip="http://192.168.1.130:8080/shot.jpg", show_window=False):
+    cam_url= 'http://' + cam_ip + ':8080/shot.jpg'
     try:
         for i in range(10):
             print(i)
             fire = False
-            response = os.system("ping -c 1 " + cam_url)
+            #response = os.system("ping " + cam_ip)
 
             # and then check the response...
-            if response == 0:
-                print('up')
-            else:
-                raise
+            # if response == 0:
+            #     print('up')
+            # else:
+            #     raise
             img_resp = requests.get(cam_url)
             encoded = base64.b64encode(img_resp.content).decode("utf-8")
             pred = None
             # Send Prediction
-            if datetime.now().second % 3 == 0:
-                pred = send_image(encoded)
+            pred = send_image(encoded)
             img_arr = np.array(bytearray(img_resp.content), dtype=np.uint8)
             img = cv2.imdecode(img_arr, -1)
             if pred is not None:
@@ -62,14 +63,14 @@ def main_loop(cam_url="http://192.168.1.130:8080/shot.jpg", show_window=False):
                 cv2.putText(img, 'FIRE!', (100, 250), color=(0, 0, 255), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=8,
                             thickness=8)
             if show_window:
-                cv2.imshow('Snir Phone', img)
+                cv2.imshow('Phone', img)
                 if cv2.waitKey(1) == 27:
                     sys.exit(0)
             if fire:
                 return True
         return False
     except BaseException as err:
-        print(f"Unexpected {err=}, {type(err)=}")
+        print(f"Unexpected {err}")
         return False
 
 

@@ -132,3 +132,4 @@ frontend/package-lock.json
 .gitignore
 sharesenseapp/migrations/0002_auto_20220511_1058.py
 sharesenseapp/migrations/0003_senseuser_address.py
+fireSensor/model.h5

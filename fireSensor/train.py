@@ -24,10 +24,8 @@ parser.add_argument('--test_batch_size', action='store', dest='test_batch_size',
                     default=14, required=False)
 
 
-parser.add_argument('--project_dir', action='store', dest='project_dir',
-                    help="""--- For inner use of cnvrg.io ---""")
-parser.add_argument('--output_dir', action='store', dest='output_dir',
-                    help="""--- For inner use of cnvrg.io ---""")
+parser.add_argument('--project_dir', action='store', dest='project_dir')
+parser.add_argument('--output_dir', action='store', dest='output_dir')
 
 args = parser.parse_args()
 train_folder = args.train_folder

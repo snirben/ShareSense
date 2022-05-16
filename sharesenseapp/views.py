@@ -30,10 +30,6 @@ class usersListApiView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class fireCamsListApiView(APIView):
-    # add permission to check if user is authenticated
-    # permission_classes = [permissions.IsAuthenticated]
-
-    # 1. List all
     def get(self, request, *args, **kwargs):
         '''
         List all the todo items for given requested user
@@ -95,6 +91,7 @@ def togglePanic(request):
 def toggleFire(request):
     user = User.objects.get(id=int(request.data['id']))
     user.isFire = not user.isFire
+    print(user.isFire)
     layer = get_channel_layer()
     async_to_sync(layer.group_send)("update_users", {"type": "prep",})
     user.save()

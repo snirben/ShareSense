@@ -22,7 +22,7 @@
 
         <div class="icons">
         <span class="fire" @click="toggleFire(user)">
-         <font-awesome-icon class="fire" icon="fa-solid fa-fire"/>
+         <font-awesome-icon class="fire" :class="{'fireAlert': user.isFire ,'alertButton': !user.isFire}" icon="fa-solid fa-fire"/>
          </span>
           <span @click="togglePanic(user)">
           <font-awesome-icon class="bell" :class="{'bellAlert': user.isPanic ,'alertButton': !user.isPanic}" icon="fa-solid fa-bell"/>
@@ -286,6 +286,14 @@ font-family: 'Varela Round', sans-serif;
       .bellAlert {
         cursor: pointer;
         color: red;
+        display: flex;
+        flex-direction: column;
+        margin-left: 12px;
+      }
+
+      .fireAlert{
+        cursor: pointer;
+        color: orange;
         display: flex;
         flex-direction: column;
         margin-left: 12px;
