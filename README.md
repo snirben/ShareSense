@@ -11,19 +11,31 @@ https://drive.google.com/file/d/1H40XrtmyRacmrFJq1UV-fnYclg_e76Be/view?usp=shari
 ## 1.
 ### Docker
 #### run the following command to run DB
-```docker-compose -p sharesense -f docker/docker-compose-dev.yml up -d```
+```
+docker-compose -p sharesense -f docker/docker-compose-dev.yml up -d
+```
 
 ## 2. 
 ### Sensors
 #### run the following command
-```pip3 install -r requirements```
-```python3 fireSensor/fireapp.py```
+```
+pip3 install -r requirements
+```
+```
+python3 fireSensor/fireapp.py
+```
 
 ## 3.
 ### API Server
-```python3 manage.py makemigrations```
-```python3 manage.py migrate```
-```python3 runserver```
+```
+python3 manage.py makemigrations
+```
+```
+python3 manage.py migrate
+```
+```
+python3 runserver
+```
 
 ## 4.
 ### FrontEnd
