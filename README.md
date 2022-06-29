@@ -40,5 +40,7 @@ python3 runserver
 ## 4.
 ### FrontEnd
 #### enter frontend directory
-```yarn start```
+```
+yarn start
+```
 browse to the address which exposed
